@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phase 3 - WebAuthn Demo</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Phase 3: Simplified Hardware Login (WebAuthn)</h1>
+    <p>Register and log in using a device passkey (digital signature), without password/TOTP.</p>
+
+    <label for="username">Username</label>
+    <input id="username" type="text" placeholder="Enter username" autocomplete="username" />
+
+    <div class="actions">
+      <button id="registerBtn" type="button">Register Passkey</button>
+      <button id="loginBtn" type="button">Login with Passkey</button>
+    </div>
+
+    <section>
+      <h2>Status</h2>
+      <pre id="status">Ready.</pre>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
