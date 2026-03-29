@@ -59,10 +59,20 @@ function publicKeyCredentialToJSON(credential) {
   if (Array.isArray(credential)) {
     return credential.map((item) => publicKeyCredentialToJSON(item));
   }
+  
+  // Explicitly handle PublicKeyCredential to capture inherited properties like 'id' and 'rawId'
   if (credential && typeof credential === "object") {
     const obj = {};
-    for (const key of Object.keys(credential)) {
-      obj[key] = publicKeyCredentialToJSON(credential[key]);
+    
+    // List of keys to explicitly check if Object.keys(credential) is empty
+    const keys = Object.keys(credential).length > 0 
+      ? Object.keys(credential) 
+      : ["id", "rawId", "type", "response", "authenticatorAttachment"];
+
+    for (const key of keys) {
+      if (credential[key] !== undefined && credential[key] !== null) {
+        obj[key] = publicKeyCredentialToJSON(credential[key]);
+      }
     }
     return obj;
   }
