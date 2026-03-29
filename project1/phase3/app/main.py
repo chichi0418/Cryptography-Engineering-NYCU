@@ -142,7 +142,7 @@ def register_finish(payload: FinishBody, request: Request) -> dict[str, str]:
     try:
         # 確保 credential 物件中有 id 欄位 (webauthn 函式庫要求)
         cred_data = payload.credential
-        if "id" not in cred_data and "rawId" in cred_data:
+        if (not cred_data.get("id")) and cred_data.get("rawId"):
             cred_data["id"] = cred_data["rawId"]
 
         verification = verify_registration_response(
@@ -210,7 +210,7 @@ def login_finish(payload: FinishBody, request: Request) -> dict[str, str]:
     try:
         # 確保 credential 物件中有 id 欄位 (webauthn 函式庫要求)
         cred_data = payload.credential
-        if "id" not in cred_data and "rawId" in cred_data:
+        if (not cred_data.get("id")) and cred_data.get("rawId"):
             cred_data["id"] = cred_data["rawId"]
 
         verification = verify_authentication_response(

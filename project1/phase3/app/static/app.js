@@ -50,33 +50,47 @@ function base64urlToBuffer(base64url) {
 }
 
 function publicKeyCredentialToJSON(credential) {
-  if (credential instanceof ArrayBuffer) {
-    return bufferToBase64url(credential);
+  if (!credential) {
+    return null;
   }
-  if (credential instanceof Uint8Array) {
-    return bufferToBase64url(credential.buffer);
-  }
-  if (Array.isArray(credential)) {
-    return credential.map((item) => publicKeyCredentialToJSON(item));
-  }
-  
-  // Explicitly handle PublicKeyCredential to capture inherited properties like 'id' and 'rawId'
-  if (credential && typeof credential === "object") {
-    const obj = {};
-    
-    // List of keys to explicitly check if Object.keys(credential) is empty
-    const keys = Object.keys(credential).length > 0 
-      ? Object.keys(credential) 
-      : ["id", "rawId", "type", "response", "authenticatorAttachment"];
 
-    for (const key of keys) {
-      if (credential[key] !== undefined && credential[key] !== null) {
-        obj[key] = publicKeyCredentialToJSON(credential[key]);
-      }
-    }
-    return obj;
+  const response = credential.response || {};
+  const serializedResponse = {};
+
+  if (response.clientDataJSON) {
+    serializedResponse.clientDataJSON = bufferToBase64url(response.clientDataJSON);
   }
-  return credential;
+  if (response.attestationObject) {
+    serializedResponse.attestationObject = bufferToBase64url(response.attestationObject);
+  }
+  if (response.authenticatorData) {
+    serializedResponse.authenticatorData = bufferToBase64url(response.authenticatorData);
+  }
+  if (response.signature) {
+    serializedResponse.signature = bufferToBase64url(response.signature);
+  }
+  if (response.userHandle) {
+    serializedResponse.userHandle = bufferToBase64url(response.userHandle);
+  }
+  if (typeof response.getTransports === "function") {
+    serializedResponse.transports = response.getTransports();
+  }
+
+  const serializedCredential = {
+    id: credential.id,
+    rawId: bufferToBase64url(credential.rawId),
+    type: credential.type,
+    response: serializedResponse,
+  };
+
+  if (credential.authenticatorAttachment) {
+    serializedCredential.authenticatorAttachment = credential.authenticatorAttachment;
+  }
+  if (typeof credential.getClientExtensionResults === "function") {
+    serializedCredential.clientExtensionResults = credential.getClientExtensionResults();
+  }
+
+  return serializedCredential;
 }
 
 function normalizeCreationOptions(publicKey) {
