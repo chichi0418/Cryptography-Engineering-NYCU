@@ -140,8 +140,13 @@ def register_finish(payload: FinishBody, request: Request) -> dict[str, str]:
         pending_registration.pop(username, None)
         raise HTTPException(status_code=409, detail="Username already registered")
     try:
+        # 確保 credential 物件中有 id 欄位 (webauthn 函式庫要求)
+        cred_data = payload.credential
+        if "id" not in cred_data and "rawId" in cred_data:
+            cred_data["id"] = cred_data["rawId"]
+
         verification = verify_registration_response(
-            credential=payload.credential,
+            credential=cred_data,
             expected_challenge=base64url_to_bytes(state["challenge"]),
             expected_rp_id=get_rp_id(request),
             expected_origin=get_expected_origins(request),
@@ -203,8 +208,13 @@ def login_finish(payload: FinishBody, request: Request) -> dict[str, str]:
         pending_authentication.pop(username, None)
         raise HTTPException(status_code=404, detail="Username is not registered")
     try:
+        # 確保 credential 物件中有 id 欄位 (webauthn 函式庫要求)
+        cred_data = payload.credential
+        if "id" not in cred_data and "rawId" in cred_data:
+            cred_data["id"] = cred_data["rawId"]
+
         verification = verify_authentication_response(
-            credential=payload.credential,
+            credential=cred_data,
             expected_challenge=base64url_to_bytes(challenge_b64),
             expected_rp_id=get_rp_id(request),
             expected_origin=get_expected_origins(request),
