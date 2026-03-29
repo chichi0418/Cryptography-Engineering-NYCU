@@ -94,6 +94,7 @@ def get_expected_origins(request: Request) -> list[str]:
     return [f"{scheme}://{host}:{port}"]
 
 @app.get("/", response_class=HTMLResponse)
+@app.head("/", response_class=HTMLResponse)
 def index(request: Request) -> HTMLResponse:
     return templates.TemplateResponse("index.html", {"request": request})
 
