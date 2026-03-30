@@ -17,7 +17,11 @@ __pycache__/
 ehthumbs.db
 Thumbs.db
 
+# Personal homework (ignore)
+hw1/
+hw2/
+
 # Project specific
-hw1/112550081.zip
-hw2/112550081_quiz2.zip
 project1/phase3/app/webauthn.db
+
+.env
