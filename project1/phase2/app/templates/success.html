@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Welcome — Phase 2{% endblock %}
+
+{% block content %}
+<div class="center">
+  <div class="big-icon">&#9989;</div>
+  <h1>Welcome, {{ username }}!</h1>
+  <p class="muted">You have successfully signed in with 2FA.</p>
+</div>
+<a class="link" href="/login" style="margin-top:1.5rem;">Sign in as a different user</a>
+{% endblock %}
