@@ -61,18 +61,35 @@ The critique should follow the following request:
   - The UI of the login interface should resemble the real website that the page eventually redirects to as closely as possible (e.g., the E3 login interface, etc.).
   - After the redirect, the password entered by the user can simply be stored in plain text in a `.txt` file.
 
-### Phase 2 -- Implementing a 6-Digit SMS/App Code: Building Your Own "Authenticator" (Symmetric 2FA) two factor (40 points)
+## Phase 2 — Symmetric 2FA (TOTP)
 
-- Goal: Make a login system that requires both a password and a 6-digit code.
-- Tasks:
-  1. **(5 points)** Make a login system which enables register and login.
-  2. **(10 points)** Secret Sharing: Generate a random string (Secret Key) and show it to the user.
-  3. **(15 points)** Use the current time and the Secret Key to calculate a 6-digit code using HMAC-SHA1.
-  4. **(10 points)** Validation: The user enters the code from their app; the server checks if it matches. Allow for a "30-second window" (if the user is slightly slow, the code still works).
-     - **Key Concept:** How does the server know the code without the user sending the Secret Key over the internet?
-- Notes:
-  1. You may use third-party authenticator applications such as **Google Authenticator**; implementing the authenticator app itself is **not required**.
-  2. However, you **may not use libraries that directly implement TOTP**, such as **PyOTP**. The cryptographic logic for generating the TOTP code must be **implemented manually**.
+### How to Run
+```bash
+docker compose up --build -d
+docker compose exec app uvicorn phase2.app.main:app \
+    --host 0.0.0.0 --port 8000 --reload
+```
+
+Open http://localhost:8000
+
+### Usage
+
+1. Go to `http://localhost:8000/register` — enter a username and password, click Register
+2. Copy the displayed base32 secret key into Google Authenticator
+   - Open Google Authenticator → tap **+** → **Enter a setup key**
+   - Paste the secret, set type to **Time-based**, tap Save
+3. Go to `http://localhost:8000/login`
+4. Enter username, password, and the 6-digit code from Google Authenticator
+5. Login success page will appear
+
+### Implementation Notes
+
+- TOTP is implemented **manually** using Python stdlib only (`hmac`, `hashlib`, `struct`, `base64`)
+- **PyOTP is NOT used**
+- Password hashing: PBKDF2-HMAC-SHA256 (Python stdlib, no external library)
+- Database: SQLite via SQLAlchemy, stored at `/workspace/phase2.db`
+- Clock tolerance: server checks T-1, T, and T+1 (allows ±30 seconds of clock skew)
+- Secret key: 160-bit random value, base32-encoded, compatible with Google Authenticator
 
 ### Phase 3 -- Simplified Hardware Login (WebAuthn): The "Digital Pass Key" (Asymmetric 2FA) (40 points)
 
