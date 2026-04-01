@@ -1,224 +1,201 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html dir="ltr" lang="en" xml:lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>陽明交通大學 E3 數位學習平台</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <title>Log in to the site | E3@NYCU</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="https://e3p.nycu.edu.tw/theme/yui_combo.php?rollup/3.18.1/yui-moodlesimple-min.css" />
+    <link rel="stylesheet" type="text/css" href="https://e3p.nycu.edu.tw/theme/styles.php/boost_union/1774911676_1769072558/all" />
 
-    body {
-      font-family: "Microsoft JhengHei", "Arial", sans-serif;
-      background: #f0f2f5;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    <style>
+        body {
+            height: 100%;
+            margin: 0;
+            background-color: #f7f7f7;
+            font-family: "Noto Sans TC", sans-serif;
+        }
 
-    /* ── Top Header Bar ── */
-    .top-bar {
-      background: #003865;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-      height: 64px;
-      gap: 16px;
-    }
-    .top-bar .site-title {
-      font-size: 20px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-    .top-bar .sub-title {
-      font-size: 13px;
-      opacity: 0.85;
-      margin-top: 2px;
-    }
+        /* Background Ovals */
+        .bkOval-1000 { top: 0px; left: 0px; width: 60%; height: 60%; z-index: -1; position: absolute; -webkit-clip-path: circle(50% at 20% 1%); clip-path: circle(50% at 20% 1%); background: linear-gradient(211deg, rgba(25, 78, 176, 1), #fff); }
+        .bkOval-900 { top: 58%; left: 50%; width: 50%; height: 60%; z-index: -1; position: absolute; -webkit-clip-path: circle(50% at 70% 90%); clip-path: circle(50% at 70% 90%); background: linear-gradient(206deg, rgba(25, 78, 176, 1), #fff); }
+        .bkOval-85 { top: 100px; left: 70%; width: 85px; height: 85px; z-index: -1; position: absolute; border-radius: 85px; background: linear-gradient(213deg, rgba(25, 78, 176, 1), #fff); }
+        .bkOval-100 { top: 130px; left: 68%; width: 100px; height: 100px; z-index: 0; position: absolute; border-radius: 100px; background: #f7f7f7; }
+        .bkOval-200 { top: 70%; left: 270px; width: 200px; height: 200px; z-index: 0; position: absolute; border-radius: 180px; background: linear-gradient(202deg, rgba(25, 78, 176, 1), #fff); }
 
-    /* ── Banner strip ── */
-    .banner {
-      background: linear-gradient(135deg, #003865 0%, #005ea6 60%, #0080c6 100%);
-      height: 8px;
-    }
+        .container-fluid {
+            padding-top: 80px;
+            max-width: 2000px; 
+            margin: 0 auto;
+        }
 
-    /* ── Main content area ── */
-    .main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 16px;
-    }
+        .LoginCard {
+            max-width: 710px;
+            width: 95%;
+            height: 710px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; 
+            padding-top: 25px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 40px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.11);
+            /*padding: 80px;*/
+            box-sizing: border-box;
+        }
 
-    .card {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-      width: 100%;
-      max-width: 420px;
-      overflow: hidden;
-    }
+        .LoginInsCard {
+            max-width: 710px;
+            width: 95%;
+            height: 710px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; 
+            padding-top: 75px;
+            padding-left: 20px;
+            padding-right: 28px;
+            padding-bottom: 40px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.11);
+            /*padding: 80px;*/
+            box-sizing: border-box;
+            box-shadow: 2px 6px 7px 0px rgba(0, 0, 0, 0.2);
+        }
 
-    .card-header {
-      background: #003865;
-      color: #fff;
-      padding: 20px 28px 16px;
-    }
-    .card-header h2 {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 2px;
-    }
-    .card-header p {
-      font-size: 12px;
-      opacity: 0.8;
-    }
+        .LoginInsCard p {
+            font-size: 0.90rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
 
-    .card-body {
-      padding: 28px 28px 24px;
-    }
 
-    .form-group {
-      margin-bottom: 18px;
-    }
-    .form-group label {
-      display: block;
-      font-size: 13px;
-      color: #444;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-      transition: border-color 0.2s;
-      outline: none;
-    }
-    .form-group input:focus {
-      border-color: #003865;
-      box-shadow: 0 0 0 3px rgba(0,56,101,0.12);
-    }
+        .indent-heading {
+            margin-left: 280px;
+        }
 
-    .hint {
-      font-size: 11.5px;
-      color: #888;
-      margin-top: 4px;
-    }
+        .indent-heading2 {
+            margin-left: 310px;
+        }
 
-    .btn-login {
-      width: 100%;
-      padding: 11px;
-      background: #003865;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      letter-spacing: 1px;
-      transition: background 0.2s;
-    }
-    .btn-login:hover {
-      background: #005ea6;
-    }
+        .editor-indent {
+            margin-left: 30px;
+        }
 
-    .divider {
-      border: none;
-      border-top: 1px solid #eee;
-      margin: 20px 0;
-    }
+        .LoginForm {
+            height: 590px;
+            width: 100%;
+            padding: 40px;
+            background-color: rgba(25, 78, 176, 0.73);
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-    .links {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12.5px;
-    }
-    .links a {
-      color: #003865;
-      text-decoration: none;
-    }
-    .links a:hover {
-      text-decoration: underline;
-    }
+        #logoimage {
+            width: 600px; 
+            max-width: 100%;
+            margin-bottom: 4px;
+        }
 
-    /* ── Footer ── */
-    footer {
-      background: #333;
-      color: #aaa;
-      text-align: center;
-      font-size: 12px;
-      padding: 14px;
-    }
-    footer a { color: #ccc; text-decoration: none; }
-  </style>
+        .LoginText {
+            max-width: 481px; width: 95%; height: 61px;
+            margin-top: 30px; padding-left: 20px;
+            border-radius: 10px; border: solid 1px #979797;
+            font-size: 24px; color: #000;
+        }
+
+        .LoginBtn {
+            max-width: 481px; width: 95%; height: 61px;
+            margin-top: 30px; border-radius: 10px;
+            background-color: #eadc00;
+            font-size: 24px; color: #fff;
+            font-weight: bold; cursor: pointer; border: none;
+        }
+
+        .login-form-forgotpassword {
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .login-form-forgotpassword a {
+            color: #404040;
+            font-weight: 350;
+            text-decoration: none;
+            /*border-bottom: 3px solid rgba(25, 78, 176, 0.73);*/
+            font-size: 0.95rem;
+        }
+
+        .LoginLang { font-size: 21px; font-weight: 600; margin: 0 5px; }
+        .LoginLang-vain { font-size: 21px; opacity: 0.5; color: #fff; text-decoration: none; }
+    </style>
 </head>
-<body>
+<body id="page-login-index">
 
-  <!-- Header -->
-  <div class="top-bar">
-    <div>
-      <div class="site-title">國立陽明交通大學 E3 數位學習平台</div>
-      <div class="sub-title">National Yang Ming Chiao Tung University &nbsp;·&nbsp; E3 e-Learning Platform</div>
-    </div>
-  </div>
-  <div class="banner"></div>
+    <div class="bkOval-1000"></div><div class="bkOval-900"></div><div class="bkOval-85"></div><div class="bkOval-100"></div><div class="bkOval-200"></div>
 
-  <!-- Login Card -->
-  <div class="main">
-    <div class="card">
-      <div class="card-header">
-        <h2>帳號登入 &nbsp;/&nbsp; Sign In</h2>
-        <p>請使用您的校園帳號與密碼登入 &nbsp;·&nbsp; Use your campus account to log in</p>
-      </div>
-      <div class="card-body">
-        <form method="POST" action="/login">
-          <div class="form-group">
-            <label for="username">帳號 / Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="學號或教職員編號"
-              autocomplete="username"
-              required
-            />
-            <div class="hint">例：student ID / faculty ID</div>
-          </div>
-          <div class="form-group">
-            <label for="password">密碼 / Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="請輸入密碼"
-              autocomplete="current-password"
-              required
-            />
-          </div>
-          <button type="submit" class="btn-login">登入 / Login</button>
-        </form>
+    <div class="container-fluid" id="nyculogin">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="LoginInsCard">
+                    <div>
+                        <p class="indent-heading2"><strong><u>登入說明</u></strong></p>
+                        
+                        <div style="margin-left: 150px;">
+                            <p>本登入頁僅供校外使用者&nbsp;(含<strong>學分班學生</strong>、<strong>校際選修</strong>)&nbsp;進入；<br />
+                            本校師生、職員，請由&nbsp;【<strong><a href="https://portal.nycu.edu.tw/" style="color: #003087;">單一入口</a></strong>】進入。</p>
+                        </div>
+                        <div style="height: 20px;"></div>
+                        <p>輸入帳號密碼後，您的<span lang="en-us" xml:lang="en-us">Email</span>信箱會收到<em><strong><span lang="en-us" xml:lang="en-us">6</span>位數字驗證碼</strong></em>，輸入後即可成功登入；若您無法確定收信的<span lang="en-us" xml:lang="en-us">Email</span>信箱請洽系所助理。</p>
+                        <div style="height: 30px;"></div>
+                        <p class="indent-heading"><strong><span lang="en-us" xml:lang="en-us"><u>Login Instructions</u></span></strong></p>
+                        
+                        <div class="editor-indent">
+                            <p><span lang="en-us" xml:lang="en-us">This login page is only for off-campus students (including<strong> credit-students</strong> and <strong>Cross-college students</strong>).</span></p>
+                            <p><span style="font-size:0.9375rem;">Teachers, students, and faculty staff of NYCU, please login through NYCU-Portal.</span></p>
+                        </div>
+                        <p><span lang="en-us" xml:lang="en-us">First, enter your ID number and password, and you will receive a<em><strong> 6-digit verification code</strong></em> in your email inbox. Enter the code to log in. Please contact your department staff if you need help determining which email address you use.</span></p>
+                    </div>
+                </div>
+            </div>
 
-        <hr class="divider" />
+            <div class="col-lg-6">
+                <div class="LoginCard">
+                    <div class="LoginForm">
+                        <div class="login-logo">
+                            <img id="logoimage" src="/static/E3Cloud_orange_w.png" alt="E3數位教學平台" />
+                        </div>
+                        
+                        <form id="login" action="/login" method="post">
+                            <input class="LoginText" name="username" placeholder="Username" type="text" required>
+                            <input class="LoginText" name="password" placeholder="Password" type="password" required>
+                            <button class="LoginBtn" type="submit">Log in</button>
+                        </form>
 
-        <div class="links">
-          <a href="#">忘記密碼？</a>
-          <a href="#">校務資訊系統</a>
-          <a href="#">聯絡資訊組</a>
+                        <div style="margin-top: 22px;">
+                            <a class="LoginLang-vain" href="#">TW</a>
+                            <span class="LoginLang">EN</span>
+                        </div>
+                    </div>
+                    <div class="login-form-forgotpassword">
+                        <a href="https://e3p.nycu.edu.tw/login/forgot_password.php">Lost password?</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    &copy; 2024 國立陽明交通大學 計算機與網路中心 &nbsp;|&nbsp;
-    <a href="#">隱私政策</a> &nbsp;|&nbsp;
-    <a href="#">使用條款</a>
-  </footer>
-
 </body>
 </html>
